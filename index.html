@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<head>
+    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css"/>
+    
+<!--Librerías para llamar la función cluster map-->
+<!--<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.5.0/MarkerCluster.Default.css" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.5.0/leaflet.markercluster.js"></script>
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+     hasta aca estan las librerias de cluster -->
+	 <script type="text/javascript" src="uruapan_copia.js"></script>
+	 <!--leaflet-search-master\src\leaflet-search.js-->
+	 <script src="leaflet-search-master/src/leaflet-search.js"></script>
+	<!--leaflet-search-master\src\leaflet-search.css--> 
+	 <link rel="stylesheet" href="leaflet-search-master/src/leaflet-search.css" />
+<!--Objeto Div que incluye la apariencia del marco del mapa-->
+ <style>
+  #map { 
+	  width: 100%;
+	  height: 900px;
+	  box-shadow: 5px 5px 5px #888;
+  }
+ </style>
+ 
+ </head>
+  <body>
+   <div id="map"></div><!--Objeto div que inserta el mapa-->
+ <script>
+ //16.858743, -99.841033
+ var map = L.map("map").setView([19.418743, -102.051033], 11);
+	
+	//Esta linea añade un mapa base o las capas de openstreet map en este caso
+    L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+        maxZoom: 18
+      }).addTo(map);
+	
+L.geoJson(uruapan).addTo(map);     
+
+var layerGroup = L.geoJSON(uruapan, {
+  onEachFeature: function (feature, layer) {
+    layer.bindPopup('<p> Ciudad: '+feature.properties.locality+'</p><p>Código postal: '+feature.properties.zipcode+'</p>'); //Se puso primero feature.properties.id y despues feature.properties.NUMPOINTS
+  }
+}).addTo(map);
+  
+//'<h1>'+feature.properties.id+'</h1><p>numero de puntos: '+feature.properties.NUMPOINTS+'</p>'
+ </script>
+ </body> 
+ </html>
